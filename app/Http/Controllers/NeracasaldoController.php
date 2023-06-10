@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class NeracaSaldoController extends Controller
 {
      public function index(Request $request)
-    {
+     {
         // Mengambil data dari tabel transaksi, detail_transaksi, akuns3, akuns2, dan akuns1
         $data = DB::table('transaksi')
             ->join('detail_transaksi', 'transaksi.id_transaksi', '=', 'detail_transaksi.id_transaksi')
@@ -22,5 +22,5 @@ class NeracaSaldoController extends Controller
         $groupedData = $data->groupBy('kode_akun3');
 
         return view('neracasaldo.index', compact('groupedData'));
-    }
+   }
 }
