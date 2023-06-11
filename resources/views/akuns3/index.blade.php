@@ -1,4 +1,3 @@
-<!-- index.blade.php -->
 @extends('app')
 
 @section('isi')
@@ -36,6 +35,8 @@
                                     <th scope="col">Golongan Akun</th>
                                     <th scope="col">Kode Akun</th>
                                     <th scope="col">Nama Akun</th>
+                                    <th scope="col">Saldo Awal</th>
+                                    <th scope="col">Saldo Akhir</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -46,11 +47,13 @@
                                         <td>{{ $result->nama_akun2 }}</td>
                                         <td>{{ $result->kode_akun3 }}</td>
                                         <td>{{ $result->nama_akun3 }}</td>
+                                        <td>{{ $result->saldo_awal }}</td>
+                                        <td>{{ $result->saldo_akhir }}</td>
                                         <td>
                                             <a href="{{ route('akuns3.edit', $result->kode_akun3) }}"
                                                 class="btn btn-primary">Edit</a>
-                                            <form action="{{ route('akuns3.destroy', $result->kode_akun3) }}" method="POST"
-                                                style="display: inline;">
+                                            <form action="{{ route('akuns3.destroy', $result->kode_akun3) }}"
+                                                method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="show-alert-delete-box btn btn-danger"

@@ -23,6 +23,7 @@ use App\Http\Controllers\JurnalMemorialController;
 use App\Http\Controllers\BukubesarController;
 use App\Http\Controllers\NeracasaldoController;
 use App\Http\Controllers\KlienController;
+use App\Http\Controllers\LabarugiController;
 
 
 // routes/web.php
@@ -122,3 +123,6 @@ Route::post('/kliens', [KlienController::class, 'store'])->name('kliens.store');
 Route::get('/kliens/{klien}/edit', [KlienController::class, 'edit'])->name('kliens.edit');
 Route::put('/kliens/{klien}', [KlienController::class, 'update'])->name('kliens.update');
 Route::delete('/kliens/{klien}', [KlienController::class, 'destroy'])->name('kliens.destroy');
+
+
+Route::get('/labarugi', [LabarugiController::class, 'index'])->name('labarugi.index');

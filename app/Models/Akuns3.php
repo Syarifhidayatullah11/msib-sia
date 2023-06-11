@@ -17,6 +17,8 @@ class Akuns3 extends Model
     protected $fillable = [
         'kode_akun3',
         'nama_akun3',
+        'saldo_awal',
+        'saldo_akhir',
         'kode_akun2',
         'kode_akun1',
     ];

@@ -1,4 +1,3 @@
-<!-- edit.blade.php -->
 @extends('app')
 
 @section('isi')
@@ -35,6 +34,16 @@
                 <label for="nama_akun3">Nama Akun</label>
                 <input type="text" class="form-control" id="nama_akun3" name="nama_akun3"
                     value="{{ $akun3->nama_akun3 }}">
+            </div>
+            <div class="form-group">
+                <label for="saldo_awal">Saldo Awal</label>
+                <input type="number" class="form-control" id="saldo_awal" name="saldo_awal"
+                    value="{{ $akun3->saldo_awal }}">
+            </div>
+            <div class="form-group">
+                <label for="saldo_akhir">Saldo Akhir</label>
+                <input type="number" class="form-control" id="saldo_akhir" name="saldo_akhir"
+                    value="{{ $akun3->saldo_akhir }}">
             </div>
 
             <button type="submit" class="btn btn-primary">Simpan</button>

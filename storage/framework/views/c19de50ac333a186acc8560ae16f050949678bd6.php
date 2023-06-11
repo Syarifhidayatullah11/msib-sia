@@ -1,6 +1,3 @@
-<!-- index.blade.php -->
-
-
 <?php $__env->startSection('isi'); ?>
     <div class="container">
         <div class="row justify-content-center">
@@ -37,6 +34,8 @@
                                     <th scope="col">Golongan Akun</th>
                                     <th scope="col">Kode Akun</th>
                                     <th scope="col">Nama Akun</th>
+                                    <th scope="col">Saldo Awal</th>
+                                    <th scope="col">Saldo Akhir</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -47,11 +46,13 @@
                                         <td><?php echo e($result->nama_akun2); ?></td>
                                         <td><?php echo e($result->kode_akun3); ?></td>
                                         <td><?php echo e($result->nama_akun3); ?></td>
+                                        <td><?php echo e($result->saldo_awal); ?></td>
+                                        <td><?php echo e($result->saldo_akhir); ?></td>
                                         <td>
                                             <a href="<?php echo e(route('akuns3.edit', $result->kode_akun3)); ?>"
                                                 class="btn btn-primary">Edit</a>
-                                            <form action="<?php echo e(route('akuns3.destroy', $result->kode_akun3)); ?>" method="POST"
-                                                style="display: inline;">
+                                            <form action="<?php echo e(route('akuns3.destroy', $result->kode_akun3)); ?>"
+                                                method="POST" style="display: inline;">
                                                 <?php echo csrf_field(); ?>
                                                 <?php echo method_field('DELETE'); ?>
                                                 <button type="submit" class="show-alert-delete-box btn btn-danger"
