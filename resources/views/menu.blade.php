@@ -45,7 +45,7 @@
         </li>
 
         <li class="nav-item">
-            <a href="{{ url('/kliens/index') }}" class="nav-link">
+            <a href="{{ route('kliens.index') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p class="text-light">Data Klien</p>
             </a>

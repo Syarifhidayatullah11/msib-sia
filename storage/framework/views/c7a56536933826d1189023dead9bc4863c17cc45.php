@@ -45,7 +45,7 @@
         </li>
 
         <li class="nav-item">
-            <a href="<?php echo e(url('/kliens/index')); ?>" class="nav-link">
+            <a href="<?php echo e(route('kliens.index')); ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p class="text-light">Data Klien</p>
             </a>

@@ -22,6 +22,7 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\JurnalMemorialController;
 use App\Http\Controllers\BukubesarController;
 use App\Http\Controllers\NeracasaldoController;
+use App\Http\Controllers\KlienController;
 
 
 // routes/web.php
@@ -52,7 +53,7 @@ Route::middleware(['auth'])->group(function(){
             // Logika jika pengguna memiliki peran lain atau tidak memiliki peran tertentu
             return redirect()->route('dashboard.user');
         }
-    })->name('dashboard');    
+    })->name('dashboard');
 
     // Admin Dashboard
     Route::get('/dashboard/admin', [DashboardController::class, 'admin'])
@@ -114,3 +115,10 @@ Route::get('/bukubesar', [BukubesarController::class, 'index'])->name('bukubesar
 Route::get('/bukubesar/cetak', [BukubesarController::class, 'cetak'])->name('bukubesar.cetakbukubesar');
 
 Route::get('/neracasaldo', [NeracasaldoController::class, 'index'])->name('neracasaldo.index');
+
+Route::get('/kliens', [KlienController::class, 'index'])->name('kliens.index');
+Route::get('/kliens/create', [KlienController::class, 'create'])->name('kliens.create');
+Route::post('/kliens', [KlienController::class, 'store'])->name('kliens.store');
+Route::get('/kliens/{klien}/edit', [KlienController::class, 'edit'])->name('kliens.edit');
+Route::put('/kliens/{klien}', [KlienController::class, 'update'])->name('kliens.update');
+Route::delete('/kliens/{klien}', [KlienController::class, 'destroy'])->name('kliens.destroy');
