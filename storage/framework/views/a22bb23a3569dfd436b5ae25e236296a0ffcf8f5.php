@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('isi'); ?>
     <div class="container">
         <h2>List Transaksi</h2>
