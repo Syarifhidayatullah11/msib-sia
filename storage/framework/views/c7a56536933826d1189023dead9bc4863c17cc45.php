@@ -110,25 +110,25 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p class="text-light">Posisi Keuangan</p>
-            </a>
-        </li>
-        <li class="nav-item">
             <a href="<?php echo e(route('labarugi.index')); ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p class="text-light">Laba Rugi</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo e(route('perubahanmodal.index')); ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p class="text-light">Perubahan Modal</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo e(route('posisikeuangan.index')); ?>"class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p class="text-light">Posisi Keuangan</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="<?php echo e(route('aruskas.index')); ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p class="text-light">Arus Kas</p>
             </a>

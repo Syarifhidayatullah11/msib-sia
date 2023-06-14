@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\DetailTransaksi;
 
-
-class PmodalController extends Controller
+class PerubahanmodalController extends Controller
 {
     public function index(Request $request)
     {
@@ -23,30 +21,24 @@ class PmodalController extends Controller
             ->select('transaksi.tanggal', 'transaksi.kode_voucher', 'akuns3.kode_akun3', 'akuns3.nama_akun3', 'detail_transaksi.debit', 'detail_transaksi.kredit', 'akuns1.nama_akun1')
             ->get();
 
-        $modalAwal = $this->hitungModalAwal();
+        $modalAwal = $this->hitungModalAwal($data);
+        $prive = $this->hitungTotalPrive($data);
 
-        $modalAwal = 0;
         $pendapatan = 0;
-        $prive = 0;
         $labarugi = 0;
         $totalDebit = 0;
 
         foreach ($data as $row) {
-            if ($row->kode_akun3 == 31) {
-                $modalAwal = $row->totalKredit;
-            }
             if ($row->kode_akun3 == 40) {
-                $pendapatan = $row->totalKredit + $row->totalKredit;
+                $pendapatan += $row->kredit;
             }
-            if ($row->kode_akun3 == 34) {
-                $prive = $row->totalDebit;
-            }
-            if (substr($row->kode_akun3,0,2) == 50) {
-                $totalDebit = $totalDebit + $row->totalDebit;
+            if (substr($row->kode_akun3, 0, 2) == 50) {
+                $totalDebit += $row->debit;
             }
         }
+
         // Mengelompokkan data berdasarkan kode akun
-        $groupedData = $data->groupBy('kode_akun2');
+        $groupedData = $data->groupBy('kode_akun3');
 
         $beban = $totalDebit + $totalDebit;
 
@@ -59,27 +51,38 @@ class PmodalController extends Controller
         $rowdatanew['penambahanmodal'] = $rowdatanew['labarugi'] - $prive;
         $rowdatanew['modalAkhir'] = $rowdatanew['penambahanmodal'] + $modalAwal;
 
-        return view('pmodal.index', compact('groupedData', 'modalAwal'));
+        return view('perubahanmodal.index', compact('groupedData', 'modalAwal'));
     }
 
-    private function hitungModalAwal()
+    private function hitungModalAwal($data)
     {
-        // Mengambil data modal awal dari tabel transaksi dan detail_transaksi
         $modalAwal = DB::table('transaksi')
             ->join('detail_transaksi', 'transaksi.id_transaksi', '=', 'detail_transaksi.id_transaksi')
             ->join('akuns3', 'detail_transaksi.kode_akun3', '=', 'akuns3.kode_akun3')
             ->join('akuns2', 'akuns3.kode_akun2', '=', 'akuns2.kode_akun2')
             ->join('akuns1', 'akuns2.kode_akun1', '=', 'akuns1.kode_akun1')
-            ->where('akuns1.nama_akun1', 'Modal')
+            ->where('akuns1.nama_akun1', 'like', 'Modal Pemilik%')
             ->sum('detail_transaksi.debit') - DB::table('transaksi')
             ->join('detail_transaksi', 'transaksi.id_transaksi', '=', 'detail_transaksi.id_transaksi')
             ->join('akuns3', 'detail_transaksi.kode_akun3', '=', 'akuns3.kode_akun3')
             ->join('akuns2', 'akuns3.kode_akun2', '=', 'akuns2.kode_akun2')
             ->join('akuns1', 'akuns2.kode_akun1', '=', 'akuns1.kode_akun1')
-            ->where('akuns1.nama_akun1', 'Modal')
+            ->where('akuns1.nama_akun1', 'like', 'Modal Pemilik%')
             ->sum('detail_transaksi.kredit');
 
         return $modalAwal;
     }
 
+    private function hitungTotalPrive($data)
+    {
+        $prive = 0;
+
+        foreach ($data as $row) {
+            if ($row->nama_akun3 == 'Prive') {
+                $prive += $row->debit - $row->kredit;
+            }
+        }
+
+        return $prive;
+    }
 }

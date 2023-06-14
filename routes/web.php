@@ -23,8 +23,10 @@ use App\Http\Controllers\JurnalMemorialController;
 use App\Http\Controllers\BukubesarController;
 use App\Http\Controllers\NeracasaldoController;
 use App\Http\Controllers\KlienController;
+use App\Http\Controllers\PerubahanmodalController;
 use App\Http\Controllers\LabarugiController;
-
+use App\Http\Controllers\PosisikeuanganController;
+use App\Http\Controllers\AruskasController;
 
 // routes/web.php
 
@@ -126,3 +128,9 @@ Route::delete('/kliens/{klien}', [KlienController::class, 'destroy'])->name('kli
 
 
 Route::get('/labarugi', [LabarugiController::class, 'index'])->name('labarugi.index');
+
+Route::get('/perubahanmodal', [PerubahanmodalController::class, 'index'])->name('perubahanmodal.index');
+
+Route::get('/posisikeuangan', [PosisikeuanganController::class, 'index'])->name('posisikeuangan.index');
+
+Route::get('/aruskas', [AruskasController::class, 'index'])->name('aruskas.index');

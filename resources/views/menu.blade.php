@@ -110,25 +110,25 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p class="text-light">Posisi Keuangan</p>
-            </a>
-        </li>
-        <li class="nav-item">
             <a href="{{ route('labarugi.index') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p class="text-light">Laba Rugi</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('perubahanmodal.index') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p class="text-light">Perubahan Modal</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('posisikeuangan.index') }}"class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p class="text-light">Posisi Keuangan</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('aruskas.index') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p class="text-light">Arus Kas</p>
             </a>
