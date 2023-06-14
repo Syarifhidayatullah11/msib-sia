@@ -8,8 +8,8 @@
 
     <table class="table table-bordered border-5" style="margin-top: 30px;">
         <thead>
-            <tr style="background-color: #C3F2FF;" class=" text-center">
-                <th width="150px" >Kode Kategori</th>
+            <tr style="background-color:#C3C6FF;" class=" text-center">
+                <th width="150px">Kode Kategori</th>
                 <th width="1000px">Nama Kategori</th>
                 <th>Aksi</th>
             </tr>
@@ -25,7 +25,8 @@
                             style="display: inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="show-alert-delete-box btn btn-danger" data-toggle="tooltip">Hapus</button>
+                            <button type="submit" class="show-alert-delete-box btn btn-danger"
+                                data-toggle="tooltip">Hapus</button>
                         </form>
                     </td>
                 </tr>

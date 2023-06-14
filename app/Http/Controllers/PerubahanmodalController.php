@@ -56,19 +56,13 @@ class PerubahanmodalController extends Controller
 
     private function hitungModalAwal($data)
     {
-        $modalAwal = DB::table('transaksi')
-            ->join('detail_transaksi', 'transaksi.id_transaksi', '=', 'detail_transaksi.id_transaksi')
-            ->join('akuns3', 'detail_transaksi.kode_akun3', '=', 'akuns3.kode_akun3')
-            ->join('akuns2', 'akuns3.kode_akun2', '=', 'akuns2.kode_akun2')
-            ->join('akuns1', 'akuns2.kode_akun1', '=', 'akuns1.kode_akun1')
-            ->where('akuns1.nama_akun1', 'like', 'Modal Pemilik%')
-            ->sum('detail_transaksi.debit') - DB::table('transaksi')
-            ->join('detail_transaksi', 'transaksi.id_transaksi', '=', 'detail_transaksi.id_transaksi')
-            ->join('akuns3', 'detail_transaksi.kode_akun3', '=', 'akuns3.kode_akun3')
-            ->join('akuns2', 'akuns3.kode_akun2', '=', 'akuns2.kode_akun2')
-            ->join('akuns1', 'akuns2.kode_akun1', '=', 'akuns1.kode_akun1')
-            ->where('akuns1.nama_akun1', 'like', 'Modal Pemilik%')
-            ->sum('detail_transaksi.kredit');
+        $modalAwal = 0;
+
+        foreach ($data as $row) {
+            if ($row->kode_akun3 == '3100' || $row->kode_akun3 == '3110' || $row->kode_akun3 == '3120' || $row->kode_akun3 == '3130' || $row->kode_akun3 == '3140') {
+                $modalAwal += $row->debit - $row->kredit;
+            }
+        }
 
         return $modalAwal;
     }

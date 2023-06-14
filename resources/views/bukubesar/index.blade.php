@@ -11,7 +11,7 @@
 
             @if ($saldoAwal !== null)
                 <div class="card mb-4">
-                    <div class="card-header">
+                    <div class="card-header" style="background-color: #C3C6FF;">
                         <div class="row">
                             <div class="col-sm-6">
                                 <h3 class="card-title">Kode Akun: {{ $kodeAkun }}</h3>

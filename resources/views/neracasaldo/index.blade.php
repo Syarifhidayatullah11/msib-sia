@@ -20,9 +20,9 @@
             </div>
         </form>
 
-        <table class="table">
+        <table class="table table-bordered" style="margin-top: 5px ">
             <thead>
-                <tr>
+                <tr style="background-color: #C3C6FF;">
                     <th>Nama Akun</th>
                     <th>Debit</th>
                     <th>Kredit</th>

@@ -5,7 +5,7 @@
         <br><br>
         <table class="table table-bordered">
             <thead>
-                <tr>
+                <tr style="background-color: #C3C6FF;">
                     <th>No.</th>
                     <th>Kode Voucher</th>
                     <th>Tanggal</th>

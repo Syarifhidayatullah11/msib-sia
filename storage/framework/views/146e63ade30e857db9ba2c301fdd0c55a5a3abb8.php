@@ -32,7 +32,7 @@
 
                         <table class="table table-striped border" style="margin-top: 30px;">
                             <thead>
-                                <tr>
+                                <tr style="background-color:#C3C6FF;">
                                     <th scope="col">Kode Golongan Akun</th>
                                     <th scope="col">Nama Golongan Akun</th>
                                     <th scope="col">Nama Kategori</th>
