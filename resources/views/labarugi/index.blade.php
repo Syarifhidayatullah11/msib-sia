@@ -17,7 +17,7 @@
             </div>
             <div class="col-md-4">
                 <button type="submit" class="btn btn-primary">Tampilkan</button>
-                <a href="{{ route('jurnalmemorial.cetak', ['tanggal_awal' => request('tanggal_awal'), 'tanggal_akhir' => request('tanggal_akhir')]) }}"
+                <a href="{{ route('cetaklabarugi', ['tanggal_awal' => request('tanggal_awal'), 'tanggal_akhir' => request('tanggal_akhir')]) }}"
                     class="btn btn-primary" target="_blank">Cetak</a>
             </div>
         </div>
@@ -32,12 +32,12 @@
             <tbody>
                 @php
                     $totalPendapatan = 0;
-                    $totalBeban = 0;
+                    $totalPengeluaran = 0;
                 @endphp
 
                 @foreach ($groupedData as $kodeAkun => $rows)
                     @php
-                        $nilaiPerubahan = 0;
+                        $saldo = 0;
                     @endphp
 
                     @foreach ($rows as $row)
@@ -55,12 +55,15 @@
                                 case 'Pengeluaran':
                                     // Akun Pengeluaran
                                     $nilaiPerubahan = $debit - $kredit;
-                                    $totalBeban += $nilaiPerubahan;
+                                    $totalPengeluaran += $nilaiPerubahan;
                                     break;
                                 default:
                                     $nilaiPerubahan = 0;
                                     break;
                             }
+                            
+                            // Menghitung saldo berdasarkan nilai perubahan
+                            $saldo += $nilaiPerubahan;
                         @endphp
                     @endforeach
 
@@ -81,19 +84,20 @@
                     <td></td>
                     <td></td>
                     <td class="text-right">{{ number_format($totalPendapatan, 0, ',', '.') }}</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td><strong>Total Beban</strong></td>
                     <td></td>
-                    <td class="text-right">{{ number_format($totalBeban, 0, ',', '.') }}</td>
+                    <td class="text-right">{{ number_format($totalPengeluaran, 0, ',', '.') }}</td>
+                    <td></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td><strong>Laba Rugi</strong></td>
                     <td></td>
                     <td></td>
-                    <td class="text-right">{{ number_format($totalPendapatan - $totalBeban, 0, ',', '.') }}</td>
-                </tr>
+                    <td class="text-right">{{ number_format($totalPendapatan - $totalPengeluaran, 0, ',', '.') }}</td>
             </tfoot>
         </table>
     </div>

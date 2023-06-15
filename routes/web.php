@@ -128,9 +128,11 @@ Route::delete('/kliens/{klien}', [KlienController::class, 'destroy'])->name('kli
 
 
 Route::get('/labarugi', [LabarugiController::class, 'index'])->name('labarugi.index');
+Route::get('/labarugi/cetak', [LabarugiController::class, 'cetak'])->name('cetaklabarugi');
 
 Route::get('/perubahanmodal', [PerubahanmodalController::class, 'index'])->name('perubahanmodal.index');
 
 Route::get('/posisikeuangan', [PosisikeuanganController::class, 'index'])->name('posisikeuangan.index');
+Route::get('/posisikeuangan/cetak', [PosisikeuanganController::class, 'cetak'])->name('cetakposisi');
 
 Route::get('/aruskas', [AruskasController::class, 'index'])->name('aruskas.index');
