@@ -1,31 +1,33 @@
+<!-- resources/views/posisikeuangan/index.blade.php -->
+
 @extends('app')
 
 @section('isi')
     <div class="container">
         <h1><b>Laporan Posisi Keuangan</b></h1>
-        <form action="{{ route('cetakposisi') }}" method="POST">
-            @csrf
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="tanggalAwal">Tanggal Awal</label>
-                        <input type="date" class="form-control" id="tanggalAwal" name="tanggalAwal" required>
+        <div class="mb-3">
+            <form action="{{ route('posisikeuangan.index') }}" method="GET">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="tanggal_awal">Tanggal Awal:</label>
+                        <input type="date" name="tanggal_awal" id="tanggal_awal" class="form-control"
+                            value="{{ $tanggalAwal ?? '' }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="tanggal_akhir">Tanggal Akhir:</label>
+                        <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control"
+                            value="{{ $tanggalAkhir ?? '' }}">
+
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary">Tampilkan</button>
+                        <a href="{{ route('posisikeuangan.cetak_result', ['tanggal_awal' => $tanggalAwal, 'tanggal_akhir' => $tanggalAkhir]) }}"
+                            class="btn btn-primary" target="_blank">Cetak</a>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="tanggalAkhir">Tanggal Akhir</label>
-                        <input type="date" class="form-control" id="tanggalAkhir" name="tanggalAkhir" required>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <button type="submit" class="btn btn-primary">Cetak</button>
-                    <button type="button" class="btn btn-secondary" id="filterButton">Filter</button>
-                </div>
-            </div>
+            </form>
             <!-- Menambahkan input tersembunyi untuk menyimpan nilai filter -->
-            <input type="hidden" name="filterSubmitted" value="true">
-        </form>
+        </div>
 
         <div class="card-body p-4">
             <div class="table-responsive">
@@ -151,16 +153,4 @@
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('filterButton').addEventListener('click', function() {
-                var tanggalAwal = document.getElementById('tanggalAwal').value;
-                var tanggalAkhir = document.getElementById('tanggalAkhir').value;
-
-                var form = document.querySelector('form');
-                form.action = "{{ route('cetakposisi') }}";
-                form.submit();
-            });
-        });
-    </script>
 @endsection

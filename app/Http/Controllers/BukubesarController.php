@@ -21,6 +21,11 @@ class BukubesarController extends Controller
         // Mengelompokkan data berdasarkan kode akun
         $groupedData = $data->groupBy('kode_akun3');
 
+           // Mengurutkan grup data berdasarkan nomor akun terkecil
+           $groupedData = $groupedData->sortBy(function ($group, $kodeAkun) {
+            return (int) $kodeAkun;
+        });
+
         // Menghitung saldo berdasarkan jenis transaksi dan total saldo
         $totalSaldo = 0;
         foreach ($groupedData as $kodeAkun => $rows) {

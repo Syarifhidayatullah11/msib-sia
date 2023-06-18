@@ -10,6 +10,7 @@ use Dompdf\Dompdf;
 use Illuminate\Support\Facades\View;
 
 class PosisikeuanganController extends Controller
+
 {
     public function index(Request $request)
     {
@@ -22,14 +23,14 @@ class PosisikeuanganController extends Controller
             ->join('akuns3', 'detail_transaksi.kode_akun3', '=', 'akuns3.kode_akun3')
             ->join('akuns2', 'akuns3.kode_akun2', '=', 'akuns2.kode_akun2')
             ->join('akuns1', 'akuns2.kode_akun1', '=', 'akuns1.kode_akun1')
-            ->select('transaksi.tanggal', 'transaksi.kode_voucher', 'akuns3.kode_akun3', 'akuns3.nama_akun3', 'detail_transaksi.debit', 'detail_transaksi.kredit', 'akuns1.nama_akun1', 'akuns2.nama_akun2')
-            ->when($tanggalAwal, function ($query) use ($tanggalAwal) {
-                return $query->where('transaksi.tanggal', '>=', $tanggalAwal);
-            })
-            ->when($tanggalAkhir, function ($query) use ($tanggalAkhir) {
-                return $query->where('transaksi.tanggal', '<=', $tanggalAkhir);
-            })
-            ->get();
+            ->select('transaksi.tanggal', 'transaksi.kode_voucher', 'akuns3.kode_akun3', 'akuns3.nama_akun3', 'detail_transaksi.debit', 'detail_transaksi.kredit', 'akuns1.nama_akun1', 'akuns2.nama_akun2');
+
+            if ($tanggalAwal && $tanggalAkhir) {
+                $data->whereBetween('transaksi.tanggal', [$tanggalAwal, $tanggalAkhir]);
+            }
+
+
+    $data = $data->get();
 
         // Mengelompokkan data berdasarkan kode akun
         $groupedData = $data->groupBy('kode_akun3');
@@ -107,13 +108,19 @@ class PosisikeuanganController extends Controller
         $tanggalAkhir = $request->input('tanggal_akhir');
 
         // Mengambil data dari tabel transaksi, detail_transaksi, akuns3, akuns2, dan akuns1
-        $data = DB::table('transaksi')
-            ->join('detail_transaksi', 'transaksi.id_transaksi', '=', 'detail_transaksi.id_transaksi')
-            ->join('akuns3', 'detail_transaksi.kode_akun3', '=', 'akuns3.kode_akun3')
-            ->join('akuns2', 'akuns3.kode_akun2', '=', 'akuns2.kode_akun2')
-            ->join('akuns1', 'akuns2.kode_akun1', '=', 'akuns1.kode_akun1')
-            ->select('transaksi.tanggal', 'transaksi.kode_voucher', 'akuns3.kode_akun3', 'akuns3.nama_akun3', 'detail_transaksi.debit', 'detail_transaksi.kredit', 'akuns1.nama_akun1', 'akuns2.nama_akun2') // Menambahkan 'akuns2.nama_akun2' dalam pemilihan kolom
-            ->get();
+            $data = DB::table('transaksi')
+        ->join('detail_transaksi', 'transaksi.id_transaksi', '=', 'detail_transaksi.id_transaksi')
+        ->join('akuns3', 'detail_transaksi.kode_akun3', '=', 'akuns3.kode_akun3')
+        ->join('akuns2', 'akuns3.kode_akun2', '=', 'akuns2.kode_akun2')
+        ->join('akuns1', 'akuns2.kode_akun1', '=', 'akuns1.kode_akun1')
+        ->select('transaksi.tanggal', 'transaksi.kode_voucher', 'akuns3.kode_akun3', 'akuns3.nama_akun3', 'detail_transaksi.debit', 'detail_transaksi.kredit', 'akuns1.nama_akun1', 'akuns2.nama_akun2');
+
+    if ($tanggalAwal && $tanggalAkhir) {
+        $data->whereBetween('transaksi.tanggal', [$tanggalAwal, $tanggalAkhir]);
+    }
+
+
+    $data = $data->get();
 
         // Mengelompokkan data berdasarkan kode akun
         $groupedData = $data->groupBy('kode_akun3');
@@ -182,29 +189,15 @@ class PosisikeuanganController extends Controller
         // Menghitung total saldo berdasarkan jenis transaksi
         $totalSaldo = collect($saldo_akun)->sum();
 
-        // Membuat instance Dompdf
-        $dompdf = new Dompdf();
 
-        // Membuat tampilan PDF dengan view 'posisi.cetak'
-        $pdf = View::make('posisikeuangan.cetakposisi', compact('groupedData', 'totalSaldo', 'tanggalAwal', 'tanggalAkhir'))->render();
+    // Generate PDF
 
-        // Memasukkan tampilan PDF ke dalam Dompdf
-        $dompdf->loadHtml($pdf);
 
-        // Menentukan ukuran dan orientasi halaman PDF
-        $dompdf->setPaper('A4', 'portrait');
+    // Render PDF
+    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('posisikeuangan.cetakposisi', compact('groupedData', 'totalSaldo', 'tanggalAwal', 'tanggalAkhir'));
 
-        // Render tampilan PDF menjadi file
-        $dompdf->render();
+    return $pdf->stream('posisikeuangan.pdf');
 
-        // Menghasilkan file PDF dan mengirimkan ke browser untuk diunduh
-      //  return $dompdf->stream('laporan_posisi_keuangan.pdf');
-
-       // Mengambil konten PDF dalam bentuk string
-    $output = $dompdf->output();
-       // Mengirimkan konten PDF sebagai respons HTTP dengan tipe konten PDF
-    return response($output, 200)->header('Content-Type', 'application/pdf');
-    }
-
+}
 
 }

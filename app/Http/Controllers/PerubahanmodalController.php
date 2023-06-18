@@ -75,7 +75,7 @@ class PerubahanmodalController extends Controller
             }
         }
 
-        dd($modalAwal);
+
 
         return $modalAwal;
     }

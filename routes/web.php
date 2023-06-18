@@ -133,6 +133,6 @@ Route::get('/labarugi/cetak', [LabarugiController::class, 'cetak'])->name('cetak
 Route::get('/perubahanmodal', [PerubahanmodalController::class, 'index'])->name('perubahanmodal.index');
 
 Route::get('/posisikeuangan', [PosisikeuanganController::class, 'index'])->name('posisikeuangan.index');
-Route::get('/posisikeuangan/cetak', [PosisikeuanganController::class, 'cetak'])->name('cetakposisi');
+Route::get('/posisikeuangan/cetak', [PosisikeuanganController::class, 'cetak'])->name('posisikeuangan.cetak_result');
 
 Route::get('/aruskas', [AruskasController::class, 'index'])->name('aruskas.index');
