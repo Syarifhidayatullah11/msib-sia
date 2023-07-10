@@ -2,25 +2,35 @@
 
 @section('isi')
     <div class="container">
-        <h1>Laporan Perubahan Modal </h1>
+        <h1>Laporan Perubahan Modal</h1>
         <div class="card-body p-4">
-            <table class="table table-hover table-striped table-md">
+            <table class="table">
                 <thead>
                     <tr>
-                        <th>Modal Awal</th>
-                        <th>Laba Rugi</th>
-                        <th>Prive</th>
-                        <th>Perubahan Modal</th>
-                        <th>Modal Akhir</th>
+                        <th>Keterangan</th>
+                        <th>Jumlah</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ number_format($modalAwal['total'], 0, ',', '.') }}</td>
-                        <td>{{ number_format($labaRugi, 0, ',', '.') }}</td>
-                        <td>{{ number_format($prive, 0, ',', '.') }}</td>
-                        <td>{{ number_format($penambahanModal, 0, ',', '.') }}</td>
-                        <td>{{ number_format($modalAkhir, 0, ',', '.') }}</td>
+                        <td>Modal Awal</td>
+                        <td>{{ number_format($modalAwal) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Laba Rugi</td>
+                        <td>{{ number_format($labaRugi) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Prive</td>
+                        <td>{{ number_format($prive) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Penambahan Modal</td>
+                        <td>{{ number_format($penambahanModal) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Modal Akhir</td>
+                        <td>{{ number_format($modalAkhir) }}</td>
                     </tr>
                 </tbody>
             </table>

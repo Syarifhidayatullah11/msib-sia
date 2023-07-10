@@ -39,49 +39,21 @@ class PerubahanmodalController extends Controller
         $penambahanModal = $labaRugi - $prive;
         $modalAkhir = $modalAwal + $penambahanModal;
 
-
         return view('perubahanmodal.index', compact('modalAwal', 'labaRugi', 'prive', 'penambahanModal', 'modalAkhir'));
     }
 
     private function hitungModalAwal($data)
     {
-        $modalAwal = [
-            '3100' => 0,
-            '3110' => 0,
-            '3120' => 0,
-            '3130' => 0,
-            '3140' => 0
-        ];
+        $modalAwal = 0;
 
         foreach ($data as $row) {
-            if ($row->kode_akun2 == '31' && in_array($row->kode_akun3, ['3100', '3110', '3120', '3130', '3140'])) {
-                switch ($row->kode_akun3) {
-                    case '3100':
-                        $modalAwal['3100'] += $row->saldo_awal;
-                        break;
-                    case '3110':
-                        $modalAwal['3110'] += $row->saldo_awal;
-                        break;
-                    case '3120':
-                        $modalAwal['3120'] += $row->saldo_awal;
-                        break;
-                    case '3130':
-                        $modalAwal['3130'] += $row->saldo_awal;
-                        break;
-                    case '3140':
-                        $modalAwal['3140'] += $row->saldo_awal;
-                        break;
-                }
+            if (in_array($row->kode_akun3, ['3100', '3110', '3120', '3130', '3140'])) {
+                $modalAwal += $row->saldo_awal;
             }
         }
 
-
-
         return $modalAwal;
     }
-
-
-
 
     private function hitungLabaRugi($data)
     {
@@ -98,7 +70,6 @@ class PerubahanmodalController extends Controller
 
     private function hitungTotalPrive($data)
     {
-
         $prive = 0;
 
         foreach ($data as $row) {
@@ -106,8 +77,6 @@ class PerubahanmodalController extends Controller
                 $prive += $row->saldo_awal;
             }
         }
-
-
 
         return $prive;
     }
